@@ -1,0 +1,59 @@
+.page_title {
+  text-align: center;
+  padding: 2%;
+  margin-bottom: 10px;
+  font-size: calc(30px + 3vw);
+}
+.recent_posts {
+  display: none;
+}
+.about-container {
+  display: flex;
+  width: 80%;
+  padding: 3%;
+
+  margin: auto;
+  justify-items: center;
+  font-family: "Open Sans", sans-serif;
+}
+.about {
+  text-align: center;
+  line-height: 25px;
+}
+.about-image {
+  width: 35%;
+}
+
+#welcome {
+  margin-top: 3%;
+  text-align: center;
+  font-family: "Open Sans", sans-serif;
+}
+.wordart {
+  width: 55%;
+  margin: auto;
+  text-align: center;
+  font-family: "Shadows Into Light", cursive;
+  letter-spacing: 2px;
+  margin-top: 20px;
+}
+
+@media screen and (max-width: 900px) {
+  .about-container {
+    display: block;
+    box-shadow: none;
+  }
+  .about {
+    width: 90%;
+    margin: auto;
+    margin-top: 10px;
+  }
+  .about-image {
+    width: 70%;
+    margin: auto;
+    margin-bottom: 10px;
+  }
+  .about-image img {
+    width: 100%;
+  }
+}
