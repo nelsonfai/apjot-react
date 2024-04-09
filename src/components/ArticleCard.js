@@ -12,11 +12,12 @@ function ArticleCard({ article }) {
           backgroundPosition: "center",
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
+          marginBottom:10
         }}
       ></div>
       <div className="article_element">
         <h3>
-          <Link to={`/blog/${article.slug}`} style={{ fontWeight: 200 }}>
+          <Link to={`/blog/${article.slug}`} style={{ fontWeight: 300 }}>
             {article.title}
           </Link>
         </h3>

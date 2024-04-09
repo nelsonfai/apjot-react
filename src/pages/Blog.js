@@ -7,9 +7,10 @@ import {
 import ArticleCard from "../components/ArticleCard";
 import FilterSection from "../components/FilterSection";
 import "../styles/Blog.css";
+import { Link } from "react-router-dom"; // Import Link from React Router
+
 function Blog() {
   const [data, setData] = useState([]);
-  console.log("data", data);
 
   useEffect(() => {
     getAll();
@@ -34,7 +35,10 @@ function Blog() {
       <ul className="article-list">
         {data.map((item, index) => (
           <li key={item.$id}>
-            <ArticleCard article={item} />
+            <Link to={`/blog/${item.slug}`}>
+              <ArticleCard article={item} />
+            </Link>
+
           </li>
         ))}
       </ul>

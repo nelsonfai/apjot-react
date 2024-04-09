@@ -7,7 +7,7 @@ function FormattedText({ body, highlights }) {
       const regex = new RegExp(highlight.text, "gi");
       formattedText = formattedText.replace(
         regex,
-        `<span class="highlighted yellow">${highlight.text}</span>`,
+        `<span className="highlighted yellow">${highlight.text}</span>`,
       );
     });
     return { __html: formattedText }; // Use __html to render HTML content dynamically

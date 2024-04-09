@@ -5,6 +5,7 @@ const databaseId = "65e834a1b7b3800eafe3";
 const likeFunction = "65e994b0b1e2cb6c7bf5";
 const CommentCollectionId = "65e9ba6eb44deadf0ac3";
 const highlightCollectionId = "65e8c5f4910645b92ec5";
+const NewsletterCollectionId = '661283290a261ea23278'
 export async function getAllDocuments() {
   try {
     const response = await databases.listDocuments(databaseId, collectionId, [
@@ -161,5 +162,45 @@ export async function createHighlight(articleId, text) {
   } catch (error) {
     console.error("Error creating highlight:", error);
     throw error; // Throw the error to indicate failure
+  }
+}
+
+
+
+export async function initiateSubscribe(email) {
+  try {
+    const response = await databases.listDocuments(
+      databaseId,
+      NewsletterCollectionId,
+      [
+        Query.equal("email", email),
+      ],
+    );
+    console.log('Got the Levels', response);
+    if (response.documents && response.documents.length > 0) {
+      return { message: "User already subscribed", subscription: response.documents ,color:'green' };
+    } else {
+      const subscription = await subscribeNewsletter(email);
+      return { message: "Successfully subscribed", subscription ,color:'green'};
+    }
+  } catch (error) {
+    console.error("Error fetching documents:", error);
+    return { message: "Something went wrong", error,color:'red' };
+  }
+}
+
+
+async function subscribeNewsletter(email) {
+  try {
+    const response = await databases.createDocument(
+      databaseId,
+      NewsletterCollectionId,
+      ID.unique(),
+      { email: email },
+    );
+    return response;
+  } catch (error) {
+    console.error("Error subscribing:", error);
+    throw error; 
   }
 }

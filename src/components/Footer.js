@@ -1,7 +1,29 @@
-// Footer component
-import React from "react";
+import React, { useState } from "react";
+import { initiateSubscribe } from "../lib/context/article";
 
 const Footer = () => {
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const [color,setColor] = useState("black")
+
+  const handleFormSubmit = async (event) => {
+    event.preventDefault(); // Prevent default form submission behavior
+    setEmail('')
+    try {
+      const response = await initiateSubscribe(email); // Call the initiateSubscribe function with the entered email
+      setMessage(response.message);
+      setColor(response.color) // Set the message based on the response
+    } catch (error) {
+      setMessage("Something went wrong");
+      setColor('red') // Set a generic error message
+      console.error("Error:", error);
+    }
+  };
+
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value); // Update the email state as the user types
+  };
+
   return (
     <div>
       {/* Newsletter section */}
@@ -14,14 +36,13 @@ const Footer = () => {
         }}
         id="subscribeToNewsletter"
       >
-        <h3 style={{ fontSize: "xx-large" }}>Join Our Weekly Newletter</h3>
+        <h3 style={{ fontSize: "xx-large" }}>Join Our Weekly Newsletter</h3>
         <p style={{ textAlign: "center", marginBlock: "1rem" }}>
           Ignite Your Mind with Apjots Weekly Newsletter: Explore Deep Insights,
           Thought-Provoking Content, and Exclusive Updates
         </p>
         <form
-          action="/blog/subscribe/"
-          method="post"
+          onSubmit={handleFormSubmit} // Handle form submission
           style={{
             display: "flex",
             width: "100%",
@@ -32,6 +53,8 @@ const Footer = () => {
         >
           <input
             type="email"
+            value={email}
+            onChange={handleEmailChange} // Handle email input change
             name="subscribeEmail"
             id="subscribeEmail"
             placeholder="Enter email address"
@@ -43,13 +66,7 @@ const Footer = () => {
             }}
             required
           />
-          <input
-            type="text"
-            value="nMktA8PFzbDaah6Sbb5c862gXTHjdNzvFaiVxoqtw4lfx2OP4Q6AZiF2NUhX6Byq"
-            name="token"
-            id="token"
-            hidden
-          />
+
           <input
             type="submit"
             value="Subscribe"
@@ -62,9 +79,11 @@ const Footer = () => {
           />
         </form>
         <p
-          style={{ textAlign: "center", marginTop: "1rem" }}
+          style={{ textAlign: "center", marginTop: "1rem", color:`${color}`}}
           id="successMessage"
-        ></p>
+        >
+          {message} {/* Display the message */}
+        </p>
       </div>
       <footer>
         <div className="social">

@@ -141,3 +141,18 @@ button.active {
   margin-top: 1rem;
   margin-bottom: 0.5rem;
 }
+
+.body ul li{
+  list-style-type: initial;
+}
+.body ol li{
+  list-style-type: decimal;
+}
+.body q{  
+  display: block;
+margin-block: .8rem;
+padding-left: 1rem;
+border-left: 1px solid black;
+font-size: large;
+
+}
