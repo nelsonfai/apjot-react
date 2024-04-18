@@ -108,12 +108,18 @@ function ArticleDetails({ match }) {
 
   const handleShare = async () => {
     try {
-        await navigator.share({
-            title: 'Title of your shared content',
-            text: 'Content you want to share',
-            url: 'URL of the shared content',
-        });
-        console.log('Shared successfully');
+        if (navigator.share) {
+            const shareData = {
+                title: data?.title,
+                text: data?.tagline,
+                url: window.location.href,
+            };
+            await navigator.share(shareData);
+            console.log('Shared successfully');
+        } else {
+            // Fallback behavior if Web Share API is not supported
+            console.log('Web Share API not supported');
+        }
     } catch (error) {
         console.error('Error sharing:', error);
     }
