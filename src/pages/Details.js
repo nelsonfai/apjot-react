@@ -106,6 +106,19 @@ function ArticleDetails({ match }) {
     commentsRef.current.scrollIntoView({ behavior: "smooth" });
   };
 
+  const handleShare = async () => {
+    try {
+        await navigator.share({
+            title: 'Title of your shared content',
+            text: 'Content you want to share',
+            url: 'URL of the shared content',
+        });
+        console.log('Shared successfully');
+    } catch (error) {
+        console.error('Error sharing:', error);
+    }
+};
+
   return (
     <div
       style={{
@@ -202,7 +215,7 @@ function ArticleDetails({ match }) {
                   {comments.length}
                 </span>
               </button>
-              <button className="button">
+              <button className="button"  onClick={handleShare}>
                 <img src="/share.png" alt="Share" />
               </button>
               {user && (
