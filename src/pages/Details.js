@@ -8,10 +8,14 @@ import {
   createComment,
   getAllHighlights,
   createHighlight,
+  getRelated
 } from "../lib/context/article";
+import { Helmet } from 'react-helmet';
+import ArticleCard from "../components/ArticleCard";
 
 function ArticleDetails({ match }) {
   const [data, setData] = useState(null);
+  const [relData, setRelData] = useState(null);
   const [likeCount, setLikeCount] = useState(0);
   const [comments, setComments] = useState([]);
   const [audio, setAudio] = useState(null);
@@ -51,9 +55,9 @@ function ArticleDetails({ match }) {
       setLikeCount(data?.applauds);
       setComments(data.comments);
       if (data) {
-        getAllHighlights(data.$id).then((highlightsData) => {
-          setHighlights(highlightsData);
-        });
+        getRelated().then((data) =>{
+          setRelData(data)
+        })
       }
     });
   }, [slug]);
@@ -125,6 +129,8 @@ function ArticleDetails({ match }) {
     }
 };
 
+const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
   return (
     <div
       style={{
@@ -132,8 +138,11 @@ function ArticleDetails({ match }) {
         maxWidth: "800px",
         margin: "auto",
         width: "100%",
-      }}
-    >
+      }}>
+      <Helmet>
+          <meta name="description" content={data?.meta_description} />
+          <meta name="keywords" content={data?.meta_keywords} />
+      </Helmet>
       {showHighlights ? (
         <div style={{ minHeight: "100vh" }}>
           <div
@@ -145,8 +154,7 @@ function ArticleDetails({ match }) {
               top: 0,
               backgroundColor: "white",
               paddingBlock: "1rem",
-            }}
-          >
+            }}>
             <h2>Highlights</h2>
             <button
               onClick={() => setShowHighlights(false)}
@@ -155,12 +163,10 @@ function ArticleDetails({ match }) {
                 border: 0,
                 backgroundColor: "whitesmoke",
                 cursor: "pointer",
-              }}
-            >
+              }}>
               Close
             </button>
           </div>
-
           <ul>
             {highlights &&
               highlights.map((highlight, index) => (
@@ -221,9 +227,10 @@ function ArticleDetails({ match }) {
                   {comments.length}
                 </span>
               </button>
-              <button className="button"  onClick={handleShare}>
+              
+             {navigator.share && <button className="button"  onClick={handleShare}>
                 <img src="/share.png" alt="Share" />
-              </button>
+              </button>}
               {user && (
                 <button
                   className="button"
@@ -234,21 +241,36 @@ function ArticleDetails({ match }) {
               )}
             </div>
             <div className="audio_actions">
-              {data?.audio && <span> {playAction}</span>}
-              {data?.audio && (
-                <button className="button" onClick={handlePlayPause}>
-                  {playing ? (
-                    <img src="/pause.png" alt="Pause" />
-                  ) : (
-                    <img src="/play-button.png" alt="Pause" />
-                  )}
-                </button>
+                {data?.audio ? (
+                  <audio controls>
+                    <source src={data.audio} type="audio/ogg" />
+                    <source src={data.audio} type="audio/mpeg" />
+                    Your browser does not support the audio element.
+                  </audio>
+                ) : (
+                  null  
               )}
             </div>
+
           </div>
           <div style={{ marginBottom: "1rem" }}>
             <img src={`${data?.image}`} alt="" width="100%" />
           </div>
+          <div className="audio_inline">
+                {data?.audio ? (
+                  <div>
+                   Listen to article
+                  <audio controls style={{marginTop:10}}>
+                    <source src={data.audio} type="audio/ogg" />
+                    <source src={data.audio} type="audio/mpeg" />
+                    Your browser does not support the audio element.
+                  </audio>
+                </div>) : (
+                  null  
+              )}
+              
+            </div>
+
           <FormattedText body={data?.body} highlights={highlights} />
           <p>{data?.author}</p>
           <p style={{ marginBlock: "1rem" }}>
@@ -261,6 +283,9 @@ function ArticleDetails({ match }) {
                 </span>
               ))}
           </p>
+lanlad
+
+
           <div ref={commentsRef}>
             {" "}
             {/* Set ref to comments section */}

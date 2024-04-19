@@ -141,7 +141,13 @@ button.active {
   margin-top: 1rem;
   margin-bottom: 0.5rem;
 }
-
+li {
+  list-style-position: inside;
+}
+li h3 {
+  display: inline;
+  margin: 0;
+}
 .body ul li{
   list-style-type: initial;
 }
@@ -155,4 +161,22 @@ padding-left: 1rem;
 border-left: 1px solid black;
 font-size: large;
 
+}
+.audio_inline{
+  display: none;
+}
+@media screen and (max-width: 768px) {
+  .article_actions{
+    display: block;
+    padding: 20px 0;
+  }
+  .audio_actions{
+    margin-top: 10px;
+    display: none;
+  }
+  .audio_inline {
+    display: block !important;
+    position: relative;
+    z-index: -1;
+  }
 }

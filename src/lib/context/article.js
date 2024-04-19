@@ -47,6 +47,20 @@ export async function getSearch(searchTerm) {
 export async function getAllFeatured() {
   try {
     const response = await databases.listDocuments(databaseId, collectionId, [
+      Query.select(["slug", "image", "title"]),
+      Query.limit(3),
+    ]);
+    return response.documents;
+  } catch (error) {
+    console.error("Error fetching documents:", error);
+    return [];
+  }
+}
+
+
+export async function getRelated() {
+  try {
+    const response = await databases.listDocuments(databaseId, collectionId, [
       Query.orderDesc("$createdAt"),
       Query.select(["slug", "image", "title"]),
       Query.limit(3),
@@ -57,6 +71,7 @@ export async function getAllFeatured() {
     return [];
   }
 }
+
 
 export async function getAllComments(articleid) {
   try {
