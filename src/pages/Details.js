@@ -259,7 +259,8 @@ const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
           <div className="audio_inline">
                 {data?.audio ? (
                   <div>
-                   Listen to article
+                   <p style ={{font-weight:"bold"}}
+              Listen to article </p>
                   <audio controls style={{marginTop:10}}>
                     <source src={data.audio} type="audio/ogg" />
                     <source src={data.audio} type="audio/mpeg" />
