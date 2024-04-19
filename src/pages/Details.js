@@ -256,23 +256,21 @@ const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
           <div style={{ marginBottom: "1rem" }}>
             <img src={`${data?.image}`} alt="" width="100%" />
           </div>
-          <div className="audio_inline">
-                {data?.audio ? (
-                  <div>
-                   <p style ={{font-weight:"bold"}} >
-              Listen to article </p>
-                  <audio controls style={{marginTop:10}}>
-                    <source src={data.audio} type="audio/ogg" />
-                    <source src={data.audio} type="audio/mpeg" />
-                    Your browser does not support the audio element.
-                  </audio>
-                </div>) : (
-                  null  
-              )}
-              
-            </div>
+<div className="audio_inline">
+  {data?.audio ? (
+    <div>
+      <p style={{fontWeight: "bold"}}>Listen to article</p>
+      <audio controls style={{marginTop: 10}}>
+        <source src={data.audio} type="audio/ogg" />
+        <source src={data.audio} type="audio/mpeg" />
+        Your browser does not support the audio element.
+      </audio>
+    </div>
+  ) : null}
+</div>
 
-          <FormattedText body={data?.body} highlights={highlights} />
+      
+                <FormattedText body={data?.body} highlights={highlights} />
           <p>{data?.author}</p>
           <p style={{ marginBlock: "1rem" }}>
             Tags:{" "}
