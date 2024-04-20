@@ -6,19 +6,34 @@ const likeFunction = "65e994b0b1e2cb6c7bf5";
 const CommentCollectionId = "65e9ba6eb44deadf0ac3";
 const highlightCollectionId = "65e8c5f4910645b92ec5";
 const NewsletterCollectionId = '661283290a261ea23278'
-export async function getAllDocuments() {
+
+export async function getAllDocuments(last) {
   try {
-    const response = await databases.listDocuments(databaseId, collectionId, [
+    let query = [
       Query.orderDesc("$createdAt"),
       Query.select(["slug", "image", "title", "$id"]),
-      Query.limit(10),
-    ]);
-    return response.documents;
+      Query.limit(25),
+    ];
+
+    // If last cursor is provided, add it to the query
+    if (last) {
+      query.push(Query.cursorAfter(last));
+    }
+
+    const response = await databases.listDocuments(databaseId, collectionId, query);
+    
+    let lastId = null;
+    if (response.documents.length > 0) {
+      lastId = response.documents[response.documents.length - 1].$id;
+    }
+
+    return { data: response.documents, lastId: lastId };
   } catch (error) {
     console.error("Error fetching documents:", error);
     return [];
   }
 }
+
 
 export async function getByFilter(filter) {
   try {

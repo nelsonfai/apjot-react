@@ -73,10 +73,12 @@
   transform-origin: 0 100px;
 }
 .section-title {
-  font-size: 4rem;
-  margin-top: 3rem;
-  padding: 1rem 2rem;
+  font-size: 3rem;
+  margin-top: 2.5rem;
+  padding: 1rem;
   text-transform: uppercase;
+  line-height: 20px;
+
 }
 
 /* SECTION grid HomepageEnd ------------------------------------------ */

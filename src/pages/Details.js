@@ -12,6 +12,7 @@ import {
 } from "../lib/context/article";
 import { Helmet } from 'react-helmet';
 import ArticleCard from "../components/ArticleCard";
+import { Link } from "react-router-dom"; // Import Link from React Router
 
 function ArticleDetails({ match }) {
   const [data, setData] = useState(null);
@@ -60,6 +61,8 @@ function ArticleDetails({ match }) {
         })
       }
     });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
   }, [slug]);
 
   const handlePlayPause = () => {
@@ -276,14 +279,22 @@ const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
           <p style={{ marginBlock: "1rem" }}>
             Tags:{" "}
             {data?.tags &&
-              data.tags.map((tag, index) => (
+            data.tags.map((tag, index) => (
                 <span key={index} className="tag">
                   {tag}
                   {index !== data.tags.length - 1 && " "}
-                </span>
+                </span> 
               ))}
           </p>
 
+          <div className="hideScroll" style={{display:'flex',gap:5,overflowX:'scroll',marginBlock:10}}>
+              {relData &&
+              relData.map((article, index) => (
+                <Link to={`/blog/${article.slug}`} > 
+                  <ArticleCard  article={article} key={index} width="250px" height="150px" fontsize="16px"/>
+                </Link>
+              ))}
+          </div>
 
           <div ref={commentsRef}>
             {" "}

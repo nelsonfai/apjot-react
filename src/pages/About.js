@@ -6,10 +6,10 @@ function About() {
   const { current: user } = useUser(); // Destructure the user from the useUser hook
   return (
     <div>
-      <h1 className="page_title">About</h1>
-      <div className="about-container">
+{  /*    <h1 className="page_title">About</h1>
+*/}      <div className="about-container">
         <div className="about">
-          <h3> Hi {user?.name}! So Glad You&#39;re Here. </h3>
+          <h3> Hi {user?.name} { !user?.name && 'there'}! So Glad You&#39;re Here. </h3>
           <br />
           <p>
             Apjot is a blog that takes an introspective look into our modern

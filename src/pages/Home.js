@@ -143,7 +143,7 @@ function Home() {
             }}
           >
             <h3 className="section-title">
-              Featured post{" "}
+              <span>Featured post </span> 
               <span
                 style={{
                   fontSize: "1.5rem",
@@ -151,6 +151,7 @@ function Home() {
                   fontWeight: 100,
                 }}
               >
+                <br/>
                 {" "}
                 <a href="/blog/">
                   See all Posts <i className="fa-solid fa-angle-right"></i>{" "}

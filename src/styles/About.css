@@ -41,7 +41,10 @@
 @media screen and (max-width: 900px) {
   .about-container {
     display: block;
+    width: 100%;
     box-shadow: none;
+    padding: 1rem;
+    font-family: 'Times New Roman', Times, serif;
   }
   .about {
     width: 90%;
