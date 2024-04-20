@@ -172,7 +172,7 @@ function Home() {
                 >
                   <a href={`/blog/${data[0].slug}`}>
                     <div className="grid-text">
-                      <h3 style={{ fontSize: "1.3rem" }}>{data[0].title}</h3>
+                      <p style={{ fontSize: "1.1rem" }}>{data[0].title}</p>
                     </div>
                   </a>
                 </div>
@@ -188,7 +188,7 @@ function Home() {
                 >
                   <a href={`/blog/${item.slug}`}>
                     <div className="grid-text">
-                      <h3 style={{ fontSize: "1.3rem" }}>{item.title}</h3>
+                    <p style={{ fontSize: "1.1rem" }}>{item.title}</p>
                     </div>
                   </a>
                 </div>

@@ -1,3 +1,10 @@
+/* CSS */
+input {
+  -webkit-appearance: none; /* Prevent default iOS styling */
+  border-radius: 0; /* Remove border-radius */
+  outline: none; /* Remove highlight on focus */
+}
+
 /* SECTION grid Homepage ------------------------------------------ */
 .preloader {
   position: fixed;
@@ -45,7 +52,6 @@
   font-size: small;
 }
 .grid-text p:first-child {
-  font-weight: bold;
   margin-bottom: 5px;
 }
 .circle {
@@ -75,10 +81,9 @@
 .section-title {
   font-size: 3rem;
   margin-top: 2.5rem;
-  padding: 1rem;
+  padding-inline: 1rem;
   text-transform: uppercase;
-  line-height: 20px;
-
+  line-height: 30px;
 }
 
 /* SECTION grid HomepageEnd ------------------------------------------ */

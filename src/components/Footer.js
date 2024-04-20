@@ -36,7 +36,7 @@ const Footer = () => {
         }}
         id="subscribeToNewsletter"
       >
-        <h3 style={{ fontSize: "xx-large" }}>Join Our Weekly Newsletter</h3>
+        <h3 style={{ fontSize: "x-large" }}>Join Our Weekly Newsletter</h3>
         <p style={{ textAlign: "center", marginBlock: "1rem" }}>
           Ignite Your Mind with Apjots Weekly Newsletter: Explore Deep Insights,
           Thought-Provoking Content, and Exclusive Updates
@@ -62,7 +62,8 @@ const Footer = () => {
               padding: "1rem",
               width: "100%",
               fontSize: "large",
-              flex: "2",
+              flex: "4",
+              borderRadius:0
             }}
             required
           />
@@ -92,7 +93,7 @@ const Footer = () => {
             target="_blank"
             rel="noreferrer"
           >
-            {" "}
+            {"  "}
             <i
               className="fa-brands fa-instagram"
               style={{ fontSize: "25px" }}
