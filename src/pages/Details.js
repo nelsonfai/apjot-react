@@ -85,9 +85,10 @@ function ArticleDetails({ match }) {
   }, [data]);
 
   const handleLike = async () => {
+    setLikeCount(likeCount + 1);
     executeFunction(data.$id).then((data) => {
       if (data) {
-        setLikeCount(likeCount + 1);
+       // setLikeCount(likeCount + 1);
       }
     });
   };
@@ -285,12 +286,12 @@ const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
                 </span> 
               ))}
           </p>
-
+              
           <div className="hideScroll" style={{display:'flex',gap:5,overflowX:'scroll',marginBlock:10}}>
               {relData &&
               relData.map((article, index) => (
                 <Link to={`/blog/${article.slug}`} > 
-                  <ArticleCard  article={article} key={index} width="250px" height="150px" fontsize="16px"/>
+                  <ArticleCard  article={article} key={article.$id} width="250px" height="150px" fontsize="16px"/>
                 </Link>
               ))}
           </div>

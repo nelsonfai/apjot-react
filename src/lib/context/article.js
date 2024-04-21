@@ -73,19 +73,43 @@ export async function getAllFeatured() {
 }
 
 
+
+// Custom shuffle function using Fisher-Yates algorithm
+function shuffleArray(array) {
+  const shuffledIndexes = [];
+
+  // Generate three unique random indexes
+  while (shuffledIndexes.length < 3) {
+    const randomIndex = Math.floor(Math.random() * array.length);
+    if (!shuffledIndexes.includes(randomIndex)) {
+      shuffledIndexes.push(randomIndex);
+    }
+  }
+
+  // Create a new array with the selected items
+  const shuffledItems = shuffledIndexes.map(index => array[index]);
+
+  return shuffledItems;
+}
+
+
+
 export async function getRelated() {
   try {
     const response = await databases.listDocuments(databaseId, collectionId, [
       Query.orderDesc("$createdAt"),
       Query.select(["slug", "image", "title"]),
-      Query.limit(3),
     ]);
-    return response.documents;
+    console.log('Related articles gottent')
+    const shuffledArray  = shuffleArray(response.documents)
+    return shuffledArray;
   } catch (error) {
     console.error("Error fetching documents:", error);
     return [];
   }
 }
+
+
 
 
 export async function getAllComments(articleid) {

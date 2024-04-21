@@ -90,7 +90,13 @@ button.active {
   height: 100%;
   object-fit: cover;
 }
-
+.article_image{
+  background-position: center !important;
+  background-size: cover !important;
+}
+.emotion li,strong {
+margin-bottom: 1rem;
+}
 .article-card .article_element h2 {
   font-size: 24px;
   font-weight: 600;
@@ -156,6 +162,19 @@ padding-left: 1rem;
 border-left: 1px solid black;
 font-size: large;
 
+}
+.body em{
+  font-style: normal;
+  font-weight: bold;
+}
+.body .ferrisimage{
+  width: 80%;
+  margin: auto;
+  margin-block: 1rem;
+  
+}
+.ferrisimage img{
+  width: 100%;
 }
 .audio_inline{
   display: none;
