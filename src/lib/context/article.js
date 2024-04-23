@@ -10,9 +10,9 @@ const NewsletterCollectionId = '661283290a261ea23278'
 export async function getAllDocuments(last) {
   try {
     let query = [
+      Query.equal("publish", true),
       Query.orderDesc("$createdAt"),
       Query.select(["slug", "image", "title", "$id"]),
-      Query.limit(25),
     ];
 
     // If last cursor is provided, add it to the query
@@ -38,6 +38,7 @@ export async function getAllDocuments(last) {
 export async function getByFilter(filter) {
   try {
     const response = await databases.listDocuments(databaseId, collectionId, [
+      Query.equal("publish", true),
       Query.equal("catergory", filter),
     ]);
     return response.documents;
@@ -62,6 +63,7 @@ export async function getSearch(searchTerm) {
 export async function getAllFeatured() {
   try {
     const response = await databases.listDocuments(databaseId, collectionId, [
+      Query.equal("publish", true),
       Query.select(["slug", "image", "title"]),
       Query.limit(3),
     ]);
@@ -97,11 +99,13 @@ function shuffleArray(array) {
 export async function getRelated() {
   try {
     const response = await databases.listDocuments(databaseId, collectionId, [
-      Query.orderDesc("$createdAt"),
+      Query.equal("publish", true),
       Query.select(["slug", "image", "title"]),
     ]);
-    console.log('Related articles gottent')
-    const shuffledArray  = shuffleArray(response.documents)
+    let  shuffledArray  = response.documents;
+    if (shuffledArray.length > 3){
+      shuffledArray = shuffleArray(response.documents)
+    }
     return shuffledArray;
   } catch (error) {
     console.error("Error fetching documents:", error);

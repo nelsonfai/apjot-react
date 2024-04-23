@@ -9,7 +9,9 @@ function FilterSection({ handleFilter, getAll, search }) {
     { value: "plr", label: "Philosophy and life reflections" },
     { value: "pdg", label: "Personal development and growth" },
     { value: "scc", label: "Social and Cultural commentary" },
-    { value: "ins", label: "Inspirational stories" },
+    //{ value: "ins", label: "Inspirational stories" },
+    {value:"bbr",label:"Biblical Reflections"},
+
     { value: "mwb", label: "Mindfulness and Well being" },
     { value: "bks", label: "Book Reviews" },
   ];

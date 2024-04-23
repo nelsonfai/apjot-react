@@ -212,7 +212,7 @@ const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
           )}
           <h1 className="title">{data?.title}</h1>
           <p className="tagline">{data?.tagline}</p>
-          <p className="date">{formatDate(data?.created)}</p>
+          { data?.created && <p className="date">{formatDate(data?.created)}</p>}
           <div className="article_actions">
             <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
               <button className="button" onClick={handleLike}>
