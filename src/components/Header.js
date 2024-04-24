@@ -23,11 +23,12 @@ const Header = () => {
           <a href="/">Home</a>
           <a href="/blog/">Blog</a>
           <a href="/about/">About</a>
-          {/*user ? (
-            <span onClick={handleLogout}>Log Out</span>
+          {user && <a href="/profile/">Profile</a>}
+         { user ? (
+            <span onClick={handleLogout} style={{cursor:'pointer'}}>Log Out</span>
           ) : (
             <a href="/login">Log In</a>
-          ) */}
+          ) }
         </div>
         <div className="hamburger-lines">
           {!isOpen && (

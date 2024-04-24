@@ -1,23 +1,23 @@
-import { ID } from "appwrite";
 import { createContext, useContext, useEffect, useState } from "react";
 import { account } from "../appwrite";
-import PropTypes from "prop-types"; // Import PropTypes
-import { useHistory } from "react-router-dom"; // Import useHistory from react-router-dom
+import PropTypes from "prop-types";
 
 const UserContext = createContext();
+
 export function useUser() {
   return useContext(UserContext);
 }
 
 export function UserProvider(props) {
   const [user, setUser] = useState(null);
-  const history = useHistory();
 
   async function login(email, password) {
-    console.log(email, password);
     const loggedIn = await account.createEmailSession(email, password);
     setUser(loggedIn);
-    rou.push("/blogs"); // Redirect to blogs page after login
+    if (loggedIn) {
+      return true;
+    }
+    return false;
   }
 
   async function logout() {
@@ -26,9 +26,71 @@ export function UserProvider(props) {
     window.location.reload();
   }
 
-  async function register(email, password) {
-    await account.create(ID.unique(), email, password);
+  async function register(email, password, name, emailVerification = true) {
+    const status = await account.create(email, password, name, emailVerification);
     await login(email, password);
+  }
+
+  async function updateName(newName) {
+    try {
+      const updatedUser = await account.updateName(newName);
+      setUser(updatedUser);
+      return true;
+    } catch (error) {
+      console.error("Error updating name:", error);
+      return false;
+    }
+  }
+
+  async function verifyEmail(email) {
+    try {
+      await account.createVerification(email);
+      return true;
+    } catch (error) {
+      console.error("Error sending email verification:", error);
+      return false;
+    }
+  }
+
+  async function updateEmail(newEmail, password) {
+    try {
+      const updatedUser = await account.updateEmail(newEmail, password);
+      setUser(updatedUser);
+      return true;
+    } catch (error) {
+      console.error("Error updating email:", error);
+      return false;
+    }
+  }
+
+  async function changePassword(currentPassword, newPassword) {
+    try {
+      await account.updatePassword(currentPassword, newPassword);
+      return true;
+    } catch (error) {
+      console.error("Error changing password:", error);
+      return false;
+    }
+  }
+
+  async function initiatePasswordRecovery(email) {
+    try {
+      await account.createRecovery(email,'apjot.blog/password-recovery/confirm');
+      return true;
+    } catch (error) {
+      console.error("Error initiating password recovery:", error);
+      return false;
+    }
+  }
+
+  async function confirmPasswordRecovery(userId, secret, newPassword) {
+    try {
+      await account.updateRecovery(userId, secret, newPassword, newPassword);
+      return true;
+    } catch (error) {
+      console.error("Error confirming password recovery once:", error);
+      return false;
+    }
   }
 
   async function init() {
@@ -45,11 +107,25 @@ export function UserProvider(props) {
   }, []);
 
   return (
-    <UserContext.Provider value={{ current: user, login, logout, register }}>
+    <UserContext.Provider
+      value={{
+        current: user,
+        login,
+        logout,
+        register,
+        updateName,
+        updateEmail,
+        changePassword,
+        verifyEmail,
+        initiatePasswordRecovery,
+        confirmPasswordRecovery
+      }}
+    >
       {props.children}
     </UserContext.Provider>
   );
 }
+
 UserProvider.propTypes = {
   children: PropTypes.node.isRequired, // Ensure children prop is provided and of type node
 };

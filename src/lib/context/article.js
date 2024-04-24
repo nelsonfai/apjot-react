@@ -1,5 +1,5 @@
 import { databases, ID } from "../appwrite";
-import { Query } from "appwrite";
+import { Query,Permission ,Role} from "appwrite";
 const collectionId = "65e837c03ab60c631376";
 const databaseId = "65e834a1b7b3800eafe3";
 const likeFunction = "65e994b0b1e2cb6c7bf5";
@@ -129,13 +129,14 @@ export async function getAllComments(articleid) {
     return [];
   }
 }
-export async function createComment(articleId, name, message, date) {
+export async function createComment(articleId, name, message, date,parentCommentId) {
+  console.log('tHIS IS MY HOME',parentCommentId)
   try {
     const response = await databases.createDocument(
       databaseId,
       CommentCollectionId,
       ID.unique(),
-      { name: name, message: message, date: date, articles: articleId },
+      { name: name, message: message, date: date, articles: articleId, parent: parentCommentId},
     );
     console.log("response created", response);
     return response;
@@ -189,31 +190,42 @@ export async function updateDocument(collectionId, documentId, data) {
   }
 }
 
-export async function getAllHighlights(articleId) {
-  console.log("Article", articleId);
+export async function getAllHighlights(articleId, userId ) {
   try {
     const response = await databases.listDocuments(
       databaseId,
       highlightCollectionId,
       [
         Query.equal("articles", articleId),
-        // Query.equal("userId", "65e8a5550a8f4889c31d"), // Assuming "userId" is the field storing user ID in highlight documents
       ],
     );
-    return response.documents;
+
+    // Filter documents based on user's permissions
+    const filteredHighlights = response.documents
+
+    console.log('hIghlights',filteredHighlights)
+    return filteredHighlights;
   } catch (error) {
     console.error("Error fetching documents:", error);
     return [];
   }
 }
 
-export async function createHighlight(articleId, text) {
+
+export async function createHighlight(articleId, text,user) {
+  console.log('User is ',user)
   try {
     const response = await databases.createDocument(
       databaseId,
       highlightCollectionId,
       ID.unique(),
       { text: text, articles: articleId },
+      [
+        Permission.read(Role.user(user)), 
+
+        Permission.update(Role.user(user)), 
+        Permission.delete(Role.user(user)), 
+    ]
     );
     console.log("response created", response);
     return response;
@@ -223,6 +235,20 @@ export async function createHighlight(articleId, text) {
   }
 }
 
+export async function deleteHighlight(highlightId) {
+  try {
+    const response = await databases.deleteDocument(
+      databaseId,
+      highlightCollectionId,
+      highlightId
+    );
+    console.log("Highlight deleted successfully:", response);
+    return response;
+  } catch (error) {
+    console.error("Error deleting highlight:", error);
+    throw error;
+  }
+}
 
 
 export async function initiateSubscribe(email) {
