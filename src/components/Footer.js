@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { initiateSubscribe } from "../lib/context/article";
 
 const Footer = () => {
@@ -8,14 +8,14 @@ const Footer = () => {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault(); // Prevent default form submission behavior
-    setEmail('')
+    setEmail("");
     try {
       const response = await initiateSubscribe(email); // Call the initiateSubscribe function with the entered email
       setMessage(response.message);
-      setColor(response.color) // Set the message based on the response
+      setColor(response.color); // Set the message based on the response
     } catch (error) {
       setMessage("Something went wrong");
-      setColor('red') // Set a generic error message
+      setColor("red"); // Set a generic error message
       console.error("Error:", error);
     }
   };
@@ -63,7 +63,7 @@ const Footer = () => {
               width: "100%",
               fontSize: "large",
               flex: "4",
-              borderRadius:0
+              borderRadius: 0,
             }}
             required
           />
@@ -80,12 +80,13 @@ const Footer = () => {
           />
         </form>
         <p
-          style={{ textAlign: "center", marginTop: "1rem", color:`${color}`}}
+          style={{ textAlign: "center", marginTop: "1rem", color: `${color}` }}
           id="successMessage"
         >
           {message} {/* Display the message */}
         </p>
       </div>
+
       <footer>
         <div className="social">
           <a

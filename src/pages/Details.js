@@ -373,7 +373,7 @@ const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
                 <p>No comments yet.</p>
               ) : (
                 comments.map((comment, index) => (
-                  <div key={index} style={{ marginBottom: "1rem", backgroundColor: comment.parent ? '#f2f2f2' : 'transparent', paddingLeft: comment.parent ? 20 : 0,borderLeft: comment.parent ? '2px solid black' : 'none' }}>
+                  <div key={index} style={{ marginBottom: "1rem", backgroundColor: comment.parent ? '#f2f2f2' : 'transparent', padding: comment.parent ? 15 : 0,borderLeft: comment.parent ? '2px solid black' : 'none' }}>
 
                     <div
                       style={{
