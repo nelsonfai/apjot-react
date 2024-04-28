@@ -320,9 +320,9 @@ const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
             </div>
 
           </div>
-          <div style={{ marginBottom: "1rem" }}>
+          { data?.image && <div style={{ marginBottom: "1rem" }}>
             <img src={`${data?.image}`} alt="" width="100%" />
-          </div>
+          </div>}
 <div className="audio_inline">
   {data?.audio ? (
     <div>
