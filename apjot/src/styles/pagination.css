@@ -1,0 +1,31 @@
+/* blog.css */
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination__button {
+  margin: 0 5px;
+  padding: 10px 15px;
+  border: none;
+  background-color: #f5f5f5;
+  color: #333;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.pagination__button:hover {
+  background-color: #ddd;
+}
+
+.pagination__button.active {
+  background-color: #0070f3;
+  color: white;
+}
+
+.pagination__button:disabled {
+  cursor: not-allowed;
+  background-color: #e0e0e0;
+}

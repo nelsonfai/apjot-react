@@ -1,0 +1,104 @@
+/* CSS */
+
+/* SECTION grid Homepage ------------------------------------------ */
+.preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 100vh;
+  grid-gap: 10px;
+  background-color: #000;
+  padding: 10px;
+}
+
+.grid-div {
+  text-align: center;
+  padding: 20px 0;
+  font-size: 30px;
+  position: relative;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.span-two-rows {
+  grid-row: 1 / span 2;
+}
+
+.grid-text {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.8); /* Black with 80% opacity */
+  color: white;
+  padding: 10px;
+  font-size: small;
+}
+.grid-text p:first-child {
+  margin-bottom: 5px;
+}
+.circle {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  margin: 0 auto;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  font-weight: bolder;
+  cursor: pointer;
+}
+.text {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  animation: rotate 10s linear infinite;
+  font-size: medium;
+  font-weight: 100;
+}
+.text span {
+  position: absolute;
+  left: 50%;
+  transform-origin: 0 100px;
+}
+.section-title {
+  font-size: 3rem;
+  margin-top: 2.5rem;
+  padding-inline: 1rem;
+  text-transform: uppercase;
+  line-height: 30px;
+}
+
+/* SECTION grid HomepageEnd ------------------------------------------ */
+@media screen and (max-width: 768px) {
+  .grid-container {
+    display: block;
+    background-color: white;
+  }
+  .grid-div {
+    min-height: 400px;
+    margin-bottom: 1rem;
+  }
+  .section-title {
+    font-size: 2rem;
+  }
+  .circle {
+    margin-top: 2rem;
+  }
+  .hero-text {
+    margin-top: 0;
+  }
+  
+}

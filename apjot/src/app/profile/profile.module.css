@@ -1,0 +1,17 @@
+.field-container {
+    align-items: center;
+    margin-block: 1rem;
+    border: 1px solid #f0f0f0;
+    padding: 0.8rem;
+  }
+  .field-container input{
+    width: 100%;
+    padding: 10px;
+    margin-block: 1rem;
+    border: 1px solid whitesmoke;
+  }
+  
+  .field-container label {
+    width: 80px;
+    font-weight: bold;
+  }
