@@ -3,7 +3,7 @@ import {
   getAllDocuments,
 
 } from "@/lib/context/article";
-import "./blog.module.css";
+import "./blog.css";
 
 import BlogContent from "@/components/BlogContent";
 
@@ -12,6 +12,6 @@ export default async function Blog() {
   const { data: initialData, lastId } = await getAllDocuments();
 
   return (
-    <BlogContent initialData={initialData} lastId={lastId} />
+    <BlogContent initialData={initialData} lastId={lastId}  className="blogContent"/>
   );
 }

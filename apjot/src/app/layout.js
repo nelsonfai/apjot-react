@@ -1,9 +1,12 @@
-import { Inter,Open_Sans } from "next/font/google";
+import { Open_Sans } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { UserProvider } from "@/lib/context/user";
-import './globals.css'
-const openSans = Open_Sans({ subsets: ["latin"] })
+import './globals.css';
+import Script from 'next/script';
+import AnalyticsProvider from '@/components/AnalyticsProvider'; // Import the AnalyticsProvider
+
+const openSans = Open_Sans({ subsets: ["latin"] });
 
 export const metadata = {
   title: "Create Next App",
@@ -13,9 +16,26 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=YOUR_GA4_MEASUREMENT_ID`}
+          strategy="afterInteractive"
+        />
+        <Script id="ga4-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'YOUR_GA4_MEASUREMENT_ID', {
+              page_path: window.location.pathname,
+            });
+          `}
+        </Script>
+      </head>
       <body className={openSans.className}>
         <UserProvider>
           <Header />
+          <AnalyticsProvider /> {/* Add the AnalyticsProvider */}
           {children}
           <Footer />
         </UserProvider>

@@ -102,7 +102,7 @@ button.active {
   background-position: center !important;
   background-size: cover !important;
 }
-.emotion li,strong {
+.emotion li,.emotion strong {
   margin-bottom: 1rem;
   }
 .article-card .article_element h2 {
@@ -152,10 +152,10 @@ button.active {
   margin-top: 1rem;
   margin-bottom: 0.5rem;
 }
-li {
+.blogContent li {
   list-style-position: inside;
 }
-li h3 {
+.blogContent li h3 {
   display: inline;
   margin: 0;
 }
