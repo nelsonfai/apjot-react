@@ -35,7 +35,6 @@ export default function RootLayout({ children }) {
       <body className={openSans.className}>
         <UserProvider>
           <Header />
-          <AnalyticsProvider /> {/* Add the AnalyticsProvider */}
           {children}
           <Footer />
         </UserProvider>
@@ -43,3 +42,6 @@ export default function RootLayout({ children }) {
     </html>
   );
 }
+
+
+

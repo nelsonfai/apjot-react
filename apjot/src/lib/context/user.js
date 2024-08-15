@@ -1,37 +1,48 @@
-'use client'
+'use client';
+
 import { createContext, useContext, useEffect, useState } from "react";
-import { account } from "@/app/appwrite";
+import { account, ID } from "../appwrite"; // Use your Appwrite configuration here
 import PropTypes from "prop-types";
 
 const UserContext = createContext();
-console.log('Account',account)
+
 export function useUser() {
   return useContext(UserContext);
 }
 
 export function UserProvider(props) {
   const [user, setUser] = useState(null);
+
   async function login(email, password) {
-    const loggedIn = await account.createEmailPasswordSession(email, password);
-    setUser(loggedIn);
-    if (loggedIn) {
+    try {
+      await account.createEmailPasswordSession(email, password);
+      const user = await account.get();
+      setUser(user);
       return true;
+    } catch (error) {
+      console.error("Login error:", error);
+      return false;
     }
-    return false;
   }
 
   async function logout() {
-    await account.deleteSession("current");
-    setUser(null);
-    window.location.reload();
+    try {
+      await account.deleteSession("current");
+      setUser(null);
+      window.location.reload();
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
   }
 
-  async function register(email, password, name, emailVerification = true) {
-    console.log('EMAIL',email, password, name,)
-    const status = await account.create(ID.unique(), email, password, name);
-    await login(email, password);
+  async function register(email, password, name) {
+    try {
+      await account.create(ID.unique(), email, password, name);
+      await login(email, password);
+    } catch (error) {
+      console.error("Registration error:", error);
+    }
   }
-
 
   async function updateName(newName) {
     try {
@@ -44,9 +55,9 @@ export function UserProvider(props) {
     }
   }
 
-  async function verifyEmail(email) {
+  async function verifyEmail() {
     try {
-      await account.createVerification(email);
+      await account.createVerification();
       return true;
     } catch (error) {
       console.error("Error sending email verification:", error);
@@ -67,7 +78,7 @@ export function UserProvider(props) {
 
   async function changePassword(currentPassword, newPassword) {
     try {
-      await account.updatePassword(currentPassword, newPassword);
+      await account.updatePassword(newPassword, currentPassword);
       return true;
     } catch (error) {
       console.error("Error changing password:", error);
@@ -77,7 +88,7 @@ export function UserProvider(props) {
 
   async function initiatePasswordRecovery(email) {
     try {
-      await account.createRecovery(email,'apjot.blog/password-recovery/confirm');
+      await account.createRecovery(email, 'http://your-redirect-url.com');
       return true;
     } catch (error) {
       console.error("Error initiating password recovery:", error);
@@ -90,16 +101,17 @@ export function UserProvider(props) {
       await account.updateRecovery(userId, secret, newPassword, newPassword);
       return true;
     } catch (error) {
-      console.error("Error confirming password recovery once:", error);
+      console.error("Error confirming password recovery:", error);
       return false;
     }
   }
 
   async function init() {
     try {
-      const loggedIn = await account.get();
-      setUser(loggedIn);
-    } catch (err) {
+      const user = await account.get();
+      setUser(user);
+    } catch (error) {
+      console.error("Initialization error:", error);
       setUser(null);
     }
   }
@@ -120,7 +132,7 @@ export function UserProvider(props) {
         changePassword,
         verifyEmail,
         initiatePasswordRecovery,
-        confirmPasswordRecovery
+        confirmPasswordRecovery,
       }}
     >
       {props.children}
@@ -129,5 +141,5 @@ export function UserProvider(props) {
 }
 
 UserProvider.propTypes = {
-  children: PropTypes.node.isRequired, // Ensure children prop is provided and of type node
+  children: PropTypes.node.isRequired,
 };

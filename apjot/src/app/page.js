@@ -1,4 +1,5 @@
-'use client'
+'use client'; // Add this directive
+
 import React, { useState, useEffect } from "react";
 import "./home.css";
 import { getAllFeatured } from "@/lib/context/article";
@@ -183,7 +184,7 @@ function Home() {
               {/* Render the other two articles */}
               {data.slice(1, 3).map((item) => (
                 <div
-                  key={item.$id}
+                  key={item.slug}
                   className="grid-div"
                   style={{ backgroundImage: `url('${item.image}')` }}
                   onClick={() => (window.location.href = `/blog/${item.slug}`)}

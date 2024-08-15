@@ -1,4 +1,4 @@
-import { databases, ID} from "../../app/appwrite";
+import { databases, ID} from "../appwrite";
 import { Query,Permission ,Role} from "appwrite";
 const collectionId = "65e837c03ab60c631376";
 const databaseId = "65e834a1b7b3800eafe3";
@@ -217,6 +217,8 @@ export async function getAllHighlights(articleId, userId ) {
 
 export async function createHighlight(articleId, text,user) {
   console.log('User is ',user)
+
+
   try {
     const response = await databases.createDocument(
       databaseId,

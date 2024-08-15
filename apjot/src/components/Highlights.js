@@ -1,19 +1,20 @@
 'use client'
 import { useState } from "react";
 import { useUser } from "@/lib/context/user";
-const Highlight = () =>{
+import { createHighlight,deleteHighlight } from "@/lib/context/article";
+const Highlight = ({data}) => {
     const {user} = useUser()
+    console.log('uSER HIGHLIGHT',user)
     const [showHighlights, setShowHighlights] = useState(false);
     const [highlights, setHighlights] = useState([]);
     const [loading, setLoading] =useState(false)
 
     function handleHighlight() {
-
         setLoading(true)
         const selection = window.getSelection();
         const text = selection.toString().trim();
         if (text.length !== 0) {
-          createHighlight(data.$id, text,user?.$id)
+          createHighlight(data.$id, text, user?.$id)
             .then((newHighlight) => {
               if (newHighlight) {
                 setHighlights([...highlights, newHighlight]);
@@ -76,8 +77,7 @@ return(
                     padding: "14px",
                     marginBlock: "1rem",
                     border: "1px solid whitesmoke",
-                  }}
-                >
+                  }}>
                   <p key={index}>{highlight.text}</p>
                   <button
                     style={{
@@ -95,7 +95,7 @@ return(
                   </button>
                 </li>
               ))}
-            {highlights.length ==0 && <p> You have no highlights for the Article</p>}
+            {highlights.length == 0 && <p> You have no highlights for the Article</p>}
           </ul>
         </div>
       ) : (

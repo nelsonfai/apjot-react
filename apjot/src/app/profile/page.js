@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from "react";
 import { useUser } from '@/lib/context/user';
 import { useRouter } from 'next/navigation';
-import './profile.module.css'
 
 const ProfilePage = () => {
   const { current: user, updateName, updateEmail, changePassword, verifyEmail ,loading} = useUser();
@@ -14,6 +13,7 @@ const ProfilePage = () => {
   const [isEmailEditing, setIsEmailEditing] = useState(false);
   const [isPasswordEditing, setIsPasswordEditing] = useState(false);
   const router = useRouter();
+  console.log('UER',user)
 
   useEffect(() => {
     if (!loading && !user) {
@@ -23,7 +23,6 @@ const ProfilePage = () => {
 
   if (loading) return <div>Loading...</div>;
   if (!user) return null;
-
 
   const handleNameEdit = () => {
     setIsNameEditing(true);
@@ -82,24 +81,51 @@ const ProfilePage = () => {
     setNewPassword("");
   };
 
-  if (!user) {
-    return <div>Loading...</div>;
-  }
+  const styles = {
+    profileContainer: {
+      padding: '2rem',
+      maxWidth: '600px',
+      margin: '0 auto',
+    },
+    fieldContainer: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      marginBottom: '1rem',
+      border: '1px solid #f0f0f0',
+      padding: '0.8rem',
+    },
+    input: {
+      width: '100%',
+      padding: '10px',
+      marginBottom: '1rem',
+      border: '1px solid whitesmoke',
+    },
+    label: {
+      width: '80px',
+      fontWeight: 'bold',
+    },
+    buttonContainer: {
+      display: 'flex',
+      gap: '0.5rem',
+    },
+  };
 
   return (
-    <div className="profile-container">
+    <div style={styles.profileContainer}>
       <h2>Profile</h2>
 
-      <div className="field-container">
-        <label>Name:</label>
+      <div style={styles.fieldContainer}>
+        <label style={styles.label}>Name:</label>
         {isNameEditing ? (
           <>
             <input
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
+              style={styles.input}
             />
-            <div className="button-container">
+            <div style={styles.buttonContainer}>
               <button onClick={handleNameUpdate}>Update</button>
               <button onClick={handleNameCancel}>Cancel</button>
             </div>
@@ -112,8 +138,8 @@ const ProfilePage = () => {
         )}
       </div>
 
-      <div className="field-container">
-        <label>Email:</label>
+      <div style={styles.fieldContainer}>
+        <label style={styles.label}>Email:</label>
         {isEmailEditing ? (
           <>
             <input
@@ -122,6 +148,7 @@ const ProfilePage = () => {
               required
               placeholder="New Email"
               onChange={(e) => setEmail(e.target.value)}
+              style={styles.input}
             />
             <input
               type="password"
@@ -129,8 +156,9 @@ const ProfilePage = () => {
               placeholder="Enter password"
               value={oldPassword}
               onChange={(e) => setOldPassword(e.target.value)}
+              style={styles.input}
             />
-            <div className="button-container">
+            <div style={styles.buttonContainer}>
               <button onClick={handleEmailUpdate}>Update</button>
               <button onClick={handleEmailCancel}>Cancel</button>
             </div>
@@ -144,14 +172,15 @@ const ProfilePage = () => {
       </div>
 
       {isPasswordEditing ? (
-        <div className="field-container">
-          <label>Password:</label>
+        <div style={styles.fieldContainer}>
+          <label style={styles.label}>Password:</label>
           <input
             type="password"
             required
             placeholder="Old Password"
             value={oldPassword}
             onChange={(e) => setOldPassword(e.target.value)}
+            style={styles.input}
           />
           <input
             type="password"
@@ -159,15 +188,16 @@ const ProfilePage = () => {
             placeholder="New Password"
             value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
+            style={styles.input}
           />
-          <div className="button-container">
+          <div style={styles.buttonContainer}>
             <button onClick={handlePasswordUpdate}>Update</button>
             <button onClick={handlePasswordCancel}>Cancel</button>
           </div>
         </div>
       ) : (
-        <div className="field-container">
-          <label>Password:</label>
+        <div style={styles.fieldContainer}>
+          <label style={styles.label}>Password:</label>
           <div>*******</div>
           <button onClick={handlePasswordEdit}>Change Password</button>
         </div>

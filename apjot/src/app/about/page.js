@@ -1,10 +1,8 @@
-import React from "react";
-import styles from './about.css';
 import { useUser } from "@/lib/context/user";
 
 function About() {
 
-  const user= null
+  const { user } = useUser();
   return (
     <div>
     <div className="about-container">

@@ -7,6 +7,9 @@ import Link from 'next/link';
 import { getDocumentById, getAllHighlights, getRelated } from '@/lib/context/article';
 import LikeButton from '@/components/LikeButton';
 import CommentsSection from '@/components/CommentsSection';
+import "../blog.css";
+import CommentCounter from '@/components/CommentCounter';
+import HighlightButton from '@/components/HighLightButton';
 
 export async function generateStaticParams() {
   const articles = await getRelated(); // Replace with a function to get all slugs if necessary
@@ -41,8 +44,10 @@ const ArticleDetails = async ({ params }) => {
       <p className="tagline">{data?.tagline}</p>
       {data?.created && <p className="date">{formatDate(data?.created)}</p>}
       <div className="article_actions">
-        <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 1 }}>
           <LikeButton initialCount={data?.applauds} articleId={data.$id} />
+          <CommentCounter  initialCount={data?.comments?.length} articleId={data.$id}/>
+          <HighlightButton initialCount={highlights} articleId={data.$id} />
         </div>
         <div className="audio_actions">
           {data?.audio && (
@@ -70,7 +75,7 @@ const ArticleDetails = async ({ params }) => {
         )}
       </div>
       <FormattedText body={data?.body} highlights={highlights} />
-      <Highlight/>
+      <Highlight data ={data}/>
       <p>{data?.author}</p>
       <p style={{ marginBlock: '1rem' }}>
         Tags:{' '}
