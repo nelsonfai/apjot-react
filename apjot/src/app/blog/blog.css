@@ -54,11 +54,14 @@
 .article_actions button {
   border: none;
   background-color: transparent;
-  margin-right: 2rem;
   cursor: pointer;
   display: flex;
   align-items: center;
+  margin-right: 2rem;
   gap: 5px;
+}
+.article_actions button.highlightbutton {
+  margin-right: 0;
 }
 .article_actions button img {
   width: 25px;

@@ -7,6 +7,7 @@ const CommentCollectionId = "65e9ba6eb44deadf0ac3";
 const highlightCollectionId = "65e8c5f4910645b92ec5";
 const NewsletterCollectionId = '661283290a261ea23278'
 
+
 function getLastId (response){
   let lastId = null;
   if (response.documents.length > 0) {
@@ -150,6 +151,7 @@ export async function createComment(articleId, name, message, date,parentComment
 }
 // Function to get a single document by its ID
 export async function getDocumentById(slug) {
+
   try {
     const response = await databases.listDocuments(databaseId, collectionId, [
       Query.equal("slug", slug),
@@ -194,6 +196,7 @@ export async function updateDocument(collectionId, documentId, data) {
 }
 
 export async function getAllHighlights(articleId, userId ) {
+  console.log('Getting hightllights')
   try {
     const response = await databases.listDocuments(
       databaseId,
@@ -217,8 +220,6 @@ export async function getAllHighlights(articleId, userId ) {
 
 export async function createHighlight(articleId, text,user) {
   console.log('User is ',user)
-
-
   try {
     const response = await databases.createDocument(
       databaseId,

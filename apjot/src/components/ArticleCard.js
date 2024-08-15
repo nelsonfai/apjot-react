@@ -1,11 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Link from "next/link";
-function ArticleCard({ article,width='100%', height="250px", fontsize='1.17rem' }) {
+
+function ArticleCard({ article, width = '100%', height = "250px", fontsize = '1.17rem' }) {
   return (
-      <article style={{width:width}}>
-        <div>
-        <Link href={`/blog/${article.slug}`} >
+    <article style={{ width: width }}>
+      <div>
+      <Link href={`/blog/${article.slug}`} style={{ fontWeight: 300, fontSize: fontsize }}>
         <div
           className="article_image"
           style={{
@@ -13,23 +14,21 @@ function ArticleCard({ article,width='100%', height="250px", fontsize='1.17rem' 
             backgroundPosition: "center",
             backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
-            marginBottom:5,
-            width:width,
-            height:height
-          }}>
-
-          </div>
+            marginBottom: 5,
+            width: width,
+            height: height
+          }}
+        />
+        </Link>
         <div className="article_element">
-          <h3 >
-            <Link href={`/blog/${article.slug}`} style={{ fontWeight: 300, fontSize:fontsize  }}>
+          <h3>
+            <Link href={`/blog/${article.slug}`} style={{ fontWeight: 300, fontSize: fontsize }}>
               {article.title}
             </Link>
           </h3>
-
         </div>
-        </Link>
-        </div>
-      </article>
+      </div>
+    </article>
   );
 }
 

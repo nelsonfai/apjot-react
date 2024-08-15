@@ -10,7 +10,6 @@ const CommentsSection = ({ articleId,initialComments }) => {
   const { current: user } = useUser();
   const [name, setName] = useState(user?.name || 'Guest');
   const [replyingTo, setReplyingTo] = useState(null);
-  console.log('Comments',comments)
   useEffect(() => {
 
   }, [articleId]);

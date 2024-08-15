@@ -1,10 +1,13 @@
 'use client'
 import React from "react";
+import { useHighlights } from '@/lib/context/highlight';
 
-function FormattedText({ body, highlights }) {
+function FormattedText({ body }) {
+  const { highlightGlobal } = useHighlights();
+  console.log('Log Higlishts ',highlightGlobal)
   const formatText = () => {
     let formattedText = body;
-    highlights.forEach((highlight) => {
+    highlightGlobal.forEach((highlight) => {
       const regex = new RegExp(highlight.text, "gi");
       formattedText = formattedText.replace(
         regex,

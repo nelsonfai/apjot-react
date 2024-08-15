@@ -18,30 +18,27 @@ export default function Login() {
       const next = urlParams.get('next') || '/blog'; // Default to '/blog' if 'next' is not present
       router.push(next);
     }
-  }, [user,login]);
+  }, [user]);
 
   const handleSubmit = async (event) => {
     event.preventDefault(); // Prevent default form submission behavior
     try {
       if (email && password) {
-        await login(email, password);
-
-        // Get the 'next' parameter from the query string
-        const urlParams = new URLSearchParams(window.location.search);
-        const next = urlParams.get('next') || '/blog'; // Default to '/blog' if 'next' is not present
-        router.push(next);
+        const loginSuccess = await login(email, password);
+        if (loginSuccess) {
+          // Get the 'next' parameter from the query string
+          const urlParams = new URLSearchParams(window.location.search);
+          const next = urlParams.get('next') || '/blog'; // Default to '/blog' if 'next' is not present
+          router.push(next);
+        } else {
+          setError("Invalid email or password.");
+        }
       } else {
-        // Handle case when one or both fields are empty
         setError("Please fill in both email and password fields.");
       }
     } catch (error) {
-      // Handle login errors
-      if (error.code === 401) {
-        setError("Invalid email or password.");
-      } else {
-        setError("Failed to login. Please try again later.");
-        console.error("Login Error:", error);
-      }
+      setError("Failed to login. Please try again later.");
+      console.error("Login Error:", error);
     }
   };
 
@@ -61,25 +58,25 @@ export default function Login() {
           placeholder="Email"
           value={email}
           required
-          onChange={(event) => {
-            setEmail(event.target.value);
-          }}
+          onChange={(event) => setEmail(event.target.value)}
         />
         <input
           type="password"
           placeholder="Password"
           value={password}
           required
-          onChange={(event) => {
-            setPassword(event.target.value);
-          }}
+          onChange={(event) => setPassword(event.target.value)}
         />
         <div>
           <button className="button" type="submit">
             Login
           </button>
         </div>
-        {error && <p style={{ color: "red", textAlign: 'center', marginBlock: 10 }}>{error}</p>} {/* Display error message if error state is not empty */}
+        {error && (
+          <p style={{ color: "red", textAlign: "center", marginBlock: 10 }}>
+            {error}
+          </p>
+        )}
         <p style={{ textAlign: "center", color: "grey" }}>
           Don't have an account? <Link href="/auth/signup">Sign Up</Link>
         </p>

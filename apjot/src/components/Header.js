@@ -7,7 +7,7 @@ import Link from "next/link";
 const Header = () => {
   const { current: user, logout } = useUser(); // Destructure the user from the useUser hook
   const [isOpen, setIsOpen] = useState(false); // State to track whether the navigation is open or closed
-  console.log('User',user )
+
   const handleLogout = () => {
     logout();
   };

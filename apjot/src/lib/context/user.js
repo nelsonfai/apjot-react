@@ -118,6 +118,7 @@ export function UserProvider(props) {
 
   useEffect(() => {
     init();
+    console.log('Initializing user context...');
   }, []);
 
   return (

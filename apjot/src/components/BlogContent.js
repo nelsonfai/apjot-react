@@ -91,9 +91,7 @@ function BlogContent({ initialData, lastId }) {
           <ul className="article-list">
             {currentArticles.map((item) => (
               <li key={item.$id}>
-                <Link href={`/blog/${item.slug}`} passHref>
                     <ArticleCard article={item} />
-                </Link>
               </li>
             ))}
           </ul>
