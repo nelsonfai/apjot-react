@@ -88,7 +88,7 @@ export function UserProvider(props) {
 
   async function initiatePasswordRecovery(email) {
     try {
-      await account.createRecovery(email, 'http://your-redirect-url.com');
+      await account.createRecovery(email, 'http://localhost:3000.com');
       return true;
     } catch (error) {
       console.error("Error initiating password recovery:", error);

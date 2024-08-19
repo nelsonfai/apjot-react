@@ -10,10 +10,25 @@ import {
   getByFilter,
   getSearch,
 } from "@/lib/context/article";
+import SubscribePopup from "./SubscribePopup";
 
 function BlogContent({ initialData, lastId }) {
   const [data, setData] = useState(initialData || []); // Ensure data is initialized as an empty array
   const [currentLastId, setLastId] = useState(lastId || null);
+
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+
+  const openPopup = () => setIsPopupOpen(true);
+  const closePopup = () => setIsPopupOpen(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      openPopup(); // Automatically open the pop-up after 10 seconds
+    }, 10000); // 10000 milliseconds = 10 seconds
+
+    return () => clearTimeout(timer); // Clean up the timer if the component unmounts
+  }, []);
+
 
   // Pagination states
   const [currentPage, setCurrentPage] = useState(1);
@@ -71,6 +86,8 @@ function BlogContent({ initialData, lastId }) {
   };
 
 
+
+
   return (
     <div>
       <FilterSection getAll={getAll} handleFilter={filter} search={search} />
@@ -102,6 +119,9 @@ function BlogContent({ initialData, lastId }) {
           />
         </>
       )}
+        <SubscribePopup isOpen={isPopupOpen} onClose={closePopup} />
+      
+
     </div>
   );
             }

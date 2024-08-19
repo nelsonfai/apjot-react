@@ -5,11 +5,25 @@ import "./home.css";
 import { getAllFeatured } from "@/lib/context/article";
 import ArticleCard from "@/components/ArticleCard";
 import Link from "next/link";
+import CookiePolicy from "@/components/cookiePolicy";
+import SubscribePopup from "@/components/SubscribePopup";
 
 function Home() {
   const [preloader, setPreloader] = useState(true); // Changed initial state to true
   const [rotatedText, setRotatedText] = useState(""); // Removed unnecessary useState
   const [data, setData] = useState([]);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+
+  const openPopup = () => setIsPopupOpen(true);
+  const closePopup = () => setIsPopupOpen(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      openPopup(); // Automatically open the pop-up after 10 seconds
+    }, 10000); // 10000 milliseconds = 10 seconds
+
+    return () => clearTimeout(timer); // Clean up the timer if the component unmounts
+  }, []);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -200,6 +214,8 @@ function Home() {
           </section>
         </div>
       </div>
+      <SubscribePopup isOpen={isPopupOpen} onClose={closePopup} />
+
     </div>
   );
 }

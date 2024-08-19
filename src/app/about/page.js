@@ -1,8 +1,10 @@
-import { useUser } from "@/lib/context/user";
+'use client'
 
+import { useUser } from "@/lib/context/user";
+import './about.css'
 function About() {
 
-  const { user } = useUser();
+  const user = useUser();
   return (
     <div>
     <div className="about-container">

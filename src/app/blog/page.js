@@ -12,6 +12,7 @@ export default async function Blog() {
   const { data: initialData, lastId } = await getAllDocuments();
 
   return (
+    
     <BlogContent initialData={initialData} lastId={lastId}  className="blogContent"/>
   );
 }
